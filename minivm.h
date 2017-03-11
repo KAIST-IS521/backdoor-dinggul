@@ -4,12 +4,7 @@
 //
 //-----------------------------------------------------------------------------
 
-#if defined(_MSC_VER)
-#include "stdint.h"
-#else
 #include <stdint.h>
-#endif
-
 
 #ifndef MINIVM_H
 #define MINIVM_H
