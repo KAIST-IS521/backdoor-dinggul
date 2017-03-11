@@ -2,7 +2,7 @@ SOURCES = minivm.h minivm.c
 CFLAGS += -Wall -Wextra
 BUILDDIR = build
 
-all: $(BUILDDIR) $(BUILDDIR)/libminivm.a
+all: $(BUILDDIR) $(BUILDDIR)/libminivm.a $(BUILDDIR)/interpreter
 
 $(BUILDDIR):
 	mkdir -p $@
@@ -10,8 +10,11 @@ $(BUILDDIR):
 $(BUILDDIR)/libminivm.a: $(BUILDDIR)/minivm.o
 	ar rcs $(BUILDDIR)/libminivm.a $(BUILDDIR)/minivm.o
 
-$(BUILDDIR)/minivm.o:
+$(BUILDDIR)/minivm.o: minivm.c
 	$(CC) $(CFLAGS) -g -c minivm.c -o $@
+
+$(BUILDDIR)/interpreter: interpreter.c
+	$(CC) $(CFLAGS) -g $(BUILDDIR)/libminivm.a interpreter.c -o $@
 
 clean:
 	rm -rf $(BUILDDIR)
