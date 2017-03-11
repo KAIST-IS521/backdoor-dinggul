@@ -2,3 +2,4 @@ test/*
 *.o
 *.a
 *.swp
+build

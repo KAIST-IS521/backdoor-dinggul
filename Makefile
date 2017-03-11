@@ -1,15 +1,20 @@
-SHELL = /bin/sh
 SOURCES = minivm.h minivm.c
 CFLAGS += -Wall -Wextra
+BUILDDIR = build
 
-lib: minivm.o
-	ar rcs libminivm.a minivm.o
+all: $(BUILDDIR) $(BUILDDIR)/libminivm.a
 
-minivm.o:
-	$(CC) $(CFLAGS) -g -c minivm.c -o minivm.o
+$(BUILDDIR):
+	mkdir -p $@
+
+$(BUILDDIR)/libminivm.a: $(BUILDDIR)/minivm.o
+	ar rcs $(BUILDDIR)/libminivm.a $(BUILDDIR)/minivm.o
+
+$(BUILDDIR)/minivm.o:
+	$(CC) $(CFLAGS) -g -c minivm.c -o $@
 
 clean:
-	rm -f *.o *.a *.txt
+	rm -rf $(BUILDDIR)
 
 inspect: bytecode.txt
 	od --format=u1 --width=4 bytecode.txt
