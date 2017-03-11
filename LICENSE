@@ -1,5 +1,14 @@
+Copyright (c) 2017 Sang Kil Cha
+All rights reserved.
+Copyrights licensed under MIT License.
+
+Both minivm.h and minivm.c code are originally written by Phillip Conrad under
+the following license.
+---------------------------------------------------------------------
 Copyright (c) 2013 Philip Conrad
 All rights reserved.
+
+The original code can be found at https://github.com/philipaconrad/mini-vm
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
