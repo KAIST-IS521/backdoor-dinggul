@@ -6,6 +6,9 @@
 #include <stdbool.h>
 #include "minivm.h"
 
+#define NUM_REGS   (256)
+#define NUM_FUNCS  (256)
+
 // Global variable that indicates if the process is running.
 static bool is_running = true;
 
@@ -36,22 +39,20 @@ void initRegs(Reg *r, uint32_t cnt)
 
 int main(int argc, char** argv) {
     VMContext vm;
-    Reg r[256];
-    FunPtr f[256];
+    Reg r[NUM_REGS];
+    FunPtr f[NUM_FUNCS];
     FILE* bytecode;
     uint32_t* pc;
-    uint32_t numRegs = sizeof(r) / sizeof(Reg);
-    uint32_t numFuns = sizeof(f) / sizeof(FunPtr);
 
     // There should be at least one argument.
     if (argc < 2) usageExit();
 
     // Initialize registers.
-    initRegs(r, numRegs);
+    initRegs(r, NUM_REGS);
     // Initialize interpretation functions.
-    initFuncs(f, numFuns);
+    initFuncs(f, NUM_FUNCS);
     // Initialize VM context.
-    initVMContext(&vm, numRegs, numFuns, r, f);
+    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f);
 
     // Load bytecode file
     bytecode = fopen(argv[1], "rb");
