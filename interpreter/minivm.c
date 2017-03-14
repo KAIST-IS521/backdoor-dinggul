@@ -106,3 +106,12 @@ void move(struct VMContext* ctx, uint32_t instr) {
     ctx->r[EXTRACT_B1(instr)].value = ctx->r[EXTRACT_B2(instr)].value;
 }
 
+// Moves an 1byte value to a register.
+// puti :: VMContext -> uint32_t -> Effect()
+void puti(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("puti:\tinstruction[%08x]\n", instr);
+#endif
+    ctx->r[EXTRACT_B1(instr)].value = EXTRACT_B2(instr);
+}
+

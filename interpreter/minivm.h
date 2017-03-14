@@ -111,6 +111,10 @@ void store(struct VMContext* ctx, uint32_t instr);
 // move :: VMContext -> uint32_t -> Effect()
 void move(struct VMContext* ctx, uint32_t instr);
 
+// Moves an 1byte value to a register.
+// puti :: VMContext -> uint32_t -> Effect()
+void puti(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H
