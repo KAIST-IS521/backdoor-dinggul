@@ -88,8 +88,8 @@ void initVMContext(struct VMContext* ctx,
 void stepVMContext(struct VMContext* ctx, uint32_t** pc);
 
 // Checks memory boundary and returns memory value according to offset.
-// getMemValue :: uint32_t -> uint32_t
-uint32_t getMemValue(uint32_t offset);
+// getMemValue :: VMContext -> uint32_t -> uint32_t
+uint32_t getMemValue(struct VMContext* ctx, uint32_t offset);
 
 // Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
