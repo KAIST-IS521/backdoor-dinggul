@@ -119,6 +119,10 @@ void puti(struct VMContext* ctx, uint32_t instr);
 // add :: VMContext -> uint32_t -> Effect()
 void add(struct VMContext* ctx, uint32_t instr);
 
+// Subtracts two values from registers and store to a register.
+// sub :: VMContext -> uint32_t -> Effect()
+void sub(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H

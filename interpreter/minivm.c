@@ -125,3 +125,13 @@ void add(struct VMContext* ctx, uint32_t instr) {
                                       ctx->r[EXTRACT_B3(instr)].value;
 }
 
+// Subtracts two values from registers and store to a register.
+// sub :: VMContext -> uint32_t -> Effect()
+void sub(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("sub:\tinstruction[%08x]\n", instr);
+#endif
+    ctx->r[EXTRACT_B1(instr)].value = ctx->r[EXTRACT_B2(instr)].value -
+                                      ctx->r[EXTRACT_B3(instr)].value;
+}
+
