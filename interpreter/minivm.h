@@ -43,7 +43,6 @@ typedef struct VMContext {
     uint32_t numFuns;
     Reg* r;           // Ptr to register array.
     FunPtr* funtable; // Ptr to a funptr table.
-    char* code;       // Ptr to read instruction.
     char* mem;        // Ptr to memory space for execution/calculation.
 } VMContext;
 
@@ -88,9 +87,17 @@ void initVMContext(struct VMContext* ctx,
 // stepVMContext :: VMContext -> uint32_t** -> Effect()
 void stepVMContext(struct VMContext* ctx, uint32_t** pc);
 
-// Stop the execution and exit
+// Checks memory boundary and returns memory value according to offset.
+// getMemValue :: uint32_t -> uint32_t
+uint32_t getMemValue(uint32_t offset);
+
+// Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
 void halt(struct VMContext* ctx, uint32_t instr);
+
+// Loads a 1byte value from memory into register.
+// load :: VMContext -> uint32_t -> Effect()
+void load(struct VMContext* ctx, uint32_t instr);
 
 
 //---------------------------------------------------------

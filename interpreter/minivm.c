@@ -44,12 +44,31 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
     (*pc)++;
 }
 
-// Stop the execution and exit
+// Checks memory boundary and returns memory value according to offset.
+// getMemValue :: uint32_t -> uint32_t
+uint32_t getMemValue(uint32_t offset) {
+    if (offset+4 > MVM_MAX_MEM_SIZE) {
+        fprintf(stderr, "Segmentation fault\n");
+        exit(1);
+    }
+}
+
+// Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
 void halt(struct VMContext* ctx, uint32_t instr) {
-    // Now there is no next execution of instruction.
 #if DEBUG
     printf("halt: instruction[%08x]\n", instr);
 #endif
+    // Now there is no next execution of instruction.
     is_running = false;
+}
+
+// Loads a 1byte value from memory into register.
+// load :: VMContext -> uint32_t -> Effect()
+void load(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("load: instruction[%08x]\n", instr);
+#endif
+    uint32_t refVal = getMemValue(ctx->r[EXTRACT_B2(instr)].value);
+    ctx->r[EXTRACT_B1(instr)].value = EXTRACT_B0(refVal);
 }
