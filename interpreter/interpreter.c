@@ -14,9 +14,7 @@
 static bool is_running = true;
 
 void usageExit(char** argv) {
-    char *buf = (char *) malloc(strlen(argv[0]) + 40);
-    int n = sprintf(buf, "Usage: %s <compiled_program>\n", argv[0]);
-    write(2, buf, n);
+    fprintf(stderr, "Usage: %s <compiled_program>\n", argv[0]);
     exit(1);
 }
 
