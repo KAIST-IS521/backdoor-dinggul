@@ -107,6 +107,10 @@ void load(struct VMContext* ctx, uint32_t instr);
 // store :: VMContext -> uint32_t -> Effect()
 void store(struct VMContext* ctx, uint32_t instr);
 
+// Moves a 32bit value from register to register.
+// move :: VMContext -> uint32_t -> Effect()
+void move(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H

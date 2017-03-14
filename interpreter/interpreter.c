@@ -28,6 +28,7 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
     f[0x00] = halt;
     f[0x10] = load;
     f[0x20] = store;
+    f[0x30] = move;
 }
 
 void initRegs(Reg *r, uint32_t cnt)
