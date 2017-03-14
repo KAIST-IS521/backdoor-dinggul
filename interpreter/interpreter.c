@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "minivm.h"
 
 #define NUM_REGS   (256)
@@ -12,8 +13,10 @@
 // Global variable that indicates if the process is running.
 static bool is_running = true;
 
-void usageExit() {
-    // TODO: show usage
+void usageExit(char** argv) {
+    char *buf = (char *) malloc(strlen(argv[0]) + 40);
+    int n = sprintf(buf, "Usage: %s <compiled_program>\n", argv[0]);
+    write(2, buf, n);
     exit(1);
 }
 
@@ -45,7 +48,7 @@ int main(int argc, char** argv) {
     uint32_t* pc;
 
     // There should be at least one argument.
-    if (argc < 2) usageExit();
+    if (argc < 2) usageExit(argv);
 
     // Initialize registers.
     initRegs(r, NUM_REGS);
