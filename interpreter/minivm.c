@@ -6,6 +6,7 @@
 
 #include "minivm.h"
 
+#define DEBUG 1
 
 //---------------------------------------------------------
 // FUNCTION IMPLEMENTATIONS:
@@ -26,6 +27,7 @@ void initVMContext(struct VMContext* ctx, const uint32_t numRegs, const uint32_t
     ctx->numFuns    = numFuns;
     ctx->r          = registers;
     ctx->funtable   = funtable;
+    ctx->mem        = (char*)malloc(MVM_MAX_MEM_SIZE);
 }
 
 
@@ -42,3 +44,12 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
     (*pc)++;
 }
 
+// Stop the execution and exit
+// halt :: VMContext -> uint32_t -> Effect()
+void halt(struct VMContext* ctx, uint32_t instr) {
+    // Now there is no next execution of instruction.
+#if DEBUG
+    printf("halt: instruction[%08x]\n", instr);
+#endif
+    is_running = false;
+}

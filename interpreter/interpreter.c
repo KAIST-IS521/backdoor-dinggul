@@ -25,7 +25,7 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
     }
 
     // TODO: initialize function pointers
-    // f[0x00] = halt;
+    f[0x00] = halt;
     // f[0x10] = load;
 }
 
@@ -48,13 +48,6 @@ int main(int argc, char** argv) {
     // There should be at least one argument.
     if (argc < 2) usageExit(argv);
 
-    // Initialize registers.
-    initRegs(r, NUM_REGS);
-    // Initialize interpretation functions.
-    initFuncs(f, NUM_FUNCS);
-    // Initialize VM context.
-    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f);
-
     // Load bytecode file
     bytecode = fopen(argv[1], "rb");
     if (bytecode == NULL) {
@@ -62,12 +55,28 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    fseek(bytecode, 0, SEEK_END);
+    int fileLen = ftell(bytecode);
+    rewind(bytecode);
+
+    char* code = (char*)malloc(fileLen/4*4+4);
+    fread(code, fileLen, 1, bytecode);
+
+    fclose(bytecode);
+
+    // Initialize registers.
+    initRegs(r, NUM_REGS);
+    // Initialize interpretation functions.
+    initFuncs(f, NUM_FUNCS);
+    // Initialize VM context.
+    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f);
+
+    // Initialize VM program counter.
+    pc = (uint32_t*)code;
     while (is_running) {
         // TODO: Read 4-byte bytecode, and set the pc accordingly
         stepVMContext(&vm, &pc);
     }
-
-    fclose(bytecode);
 
     // Zero indicates normal termination.
     return 0;

@@ -5,6 +5,9 @@
 //-----------------------------------------------------------------------------
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifndef MINIVM_H
 #define MINIVM_H
@@ -18,6 +21,8 @@
 #define MVM_NUM_FUNS 256
 
 #define MVM_NUM_REGISTERS 16 // Default
+
+#define MVM_MAX_MEM_SIZE  8192 // Default
 
 
 //---------------------------------------------------------
@@ -38,6 +43,8 @@ typedef struct VMContext {
     uint32_t numFuns;
     Reg* r;           // Ptr to register array.
     FunPtr* funtable; // Ptr to a funptr table.
+    char* code;       // Ptr to read instruction.
+    char* mem;        // Ptr to memory space for execution/calculation.
 } VMContext;
 
 
@@ -55,6 +62,9 @@ static FunPtr mvm_function_table[MVM_NUM_FUNS];
 #define EXTRACT_B1(i) ((i >> 8) & 0xFF)
 #define EXTRACT_B2(i) ((i >> 16) & 0xFF)
 #define EXTRACT_B3(i) ((i >> 24) & 0xFF)
+
+// Global variable that indicates if the process is running.
+extern bool is_running;
 
 
 //---------------------------------------------------------
@@ -77,6 +87,10 @@ void initVMContext(struct VMContext* ctx,
 // Reads an instruction, executes it, then steps to the next instruction.
 // stepVMContext :: VMContext -> uint32_t** -> Effect()
 void stepVMContext(struct VMContext* ctx, uint32_t** pc);
+
+// Stop the execution and exit
+// halt :: VMContext -> uint32_t -> Effect()
+void halt(struct VMContext* ctx, uint32_t instr);
 
 
 //---------------------------------------------------------
