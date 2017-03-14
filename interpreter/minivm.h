@@ -115,6 +115,10 @@ void move(struct VMContext* ctx, uint32_t instr);
 // puti :: VMContext -> uint32_t -> Effect()
 void puti(struct VMContext* ctx, uint32_t instr);
 
+// Adds two values from registers and store to a register.
+// add :: VMContext -> uint32_t -> Effect()
+void add(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H

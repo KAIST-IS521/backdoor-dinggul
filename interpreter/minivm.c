@@ -115,3 +115,13 @@ void puti(struct VMContext* ctx, uint32_t instr) {
     ctx->r[EXTRACT_B1(instr)].value = EXTRACT_B2(instr);
 }
 
+// Adds two values from registers and store to a register.
+// add :: VMContext -> uint32_t -> Effect()
+void add(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("add:\tinstruction[%08x]\n", instr);
+#endif
+    ctx->r[EXTRACT_B1(instr)].value = ctx->r[EXTRACT_B2(instr)].value +
+                                      ctx->r[EXTRACT_B3(instr)].value;
+}
+
