@@ -34,6 +34,7 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
     f[0x60] = sub;
     f[0x70] = gt;
     f[0x80] = ge;
+    f[0x90] = eq;
 }
 
 void initRegs(Reg *r, uint32_t cnt)

@@ -131,6 +131,10 @@ void gt(struct VMContext* ctx, uint32_t instr);
 // ge :: VMContext -> uint32_t -> Effect()
 void ge(struct VMContext* ctx, uint32_t instr);
 
+// Compare two registers and store the result to a register. (equal)
+// eq :: VMContext -> uint32_t -> Effect()
+void eq(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H

@@ -153,3 +153,12 @@ void ge(struct VMContext* ctx, uint32_t instr) {
     ctx->r[EXTRACT_B1(instr)].value = (ctx->r[EXTRACT_B2(instr)].value >= ctx->r[EXTRACT_B3(instr)].value) ? 1 : 0;
 }
 
+// Compare two registers and store the result to a register. (equal)
+// eq :: VMContext -> uint32_t -> Effect()
+void eq(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("eq:\tinstruction[%08x]\n", instr);
+#endif
+    ctx->r[EXTRACT_B1(instr)].value = (ctx->r[EXTRACT_B2(instr)].value == ctx->r[EXTRACT_B3(instr)].value) ? 1 : 0;
+}
+
