@@ -13,8 +13,8 @@ $(BUILDDIR)/libminivm.a: $(BUILDDIR)/minivm.o
 $(BUILDDIR)/minivm.o: minivm.c
 	$(CC) $(CFLAGS) -g -c minivm.c -o $@
 
-$(BUILDDIR)/interpreter: interpreter.c
-	$(CC) $(CFLAGS) -g $(BUILDDIR)/libminivm.a interpreter.c -o $@
+$(BUILDDIR)/interpreter: interpreter.c $(BUILDDIR)/libminivm.a
+	$(CC) $(CFLAGS) -g $^ -o $@
 
 clean:
 	rm -rf $(BUILDDIR)
