@@ -11,7 +11,7 @@
 #define NUM_FUNCS  (256)
 
 // Global variable that indicates if the process is running.
-static bool is_running = true;
+bool is_running = true;
 
 void usageExit(char** argv) {
     fprintf(stderr, "Usage: %s <compiled_program>\n", argv[0]);
@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
     // Initialize VM program counter.
     pc = (uint32_t*)code;
     while (is_running) {
-        // TODO: Read 4-byte bytecode, and set the pc accordingly
+        // TODO: Check the boundary of program counter.
         stepVMContext(&vm, &pc);
     }
 
