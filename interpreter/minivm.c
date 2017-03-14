@@ -135,12 +135,21 @@ void sub(struct VMContext* ctx, uint32_t instr) {
                                       ctx->r[EXTRACT_B3(instr)].value;
 }
 
-// Compare two registers and store the result to a register.
+// Compare two registers and store the result to a register. (greater than)
 // gt :: VMContext -> uint32_t -> Effect()
 void gt(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
     printf("gt:\tinstruction[%08x]\n", instr);
 #endif
     ctx->r[EXTRACT_B1(instr)].value = (ctx->r[EXTRACT_B2(instr)].value > ctx->r[EXTRACT_B3(instr)].value) ? 1 : 0;
+}
+
+// Compare two registers and store the result to a register. (grather & equal)
+// ge :: VMContext -> uint32_t -> Effect()
+void ge(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("ge:\tinstruction[%08x]\n", instr);
+#endif
+    ctx->r[EXTRACT_B1(instr)].value = (ctx->r[EXTRACT_B2(instr)].value >= ctx->r[EXTRACT_B3(instr)].value) ? 1 : 0;
 }
 
