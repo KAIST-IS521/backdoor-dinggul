@@ -123,6 +123,10 @@ void add(struct VMContext* ctx, uint32_t instr);
 // sub :: VMContext -> uint32_t -> Effect()
 void sub(struct VMContext* ctx, uint32_t instr);
 
+// Compare two registers and store the result to a register.
+// gt :: VMContext -> uint32_t -> Effect()
+void gt(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H
