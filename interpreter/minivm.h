@@ -91,6 +91,10 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc);
 // getMemValue :: VMContext -> uint32_t -> uint32_t
 uint32_t getMemValue(struct VMContext* ctx, uint32_t offset);
 
+// Checks memory boundary and returns memory value according to offset.
+// setMemValue :: VMContext -> uint32_t -> char -> Effect()
+void setMemValue(struct VMContext* ctx, uint32_t offset, char value);
+
 // Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
 void halt(struct VMContext* ctx, uint32_t instr);
@@ -98,6 +102,10 @@ void halt(struct VMContext* ctx, uint32_t instr);
 // Loads a 1byte value from memory into register.
 // load :: VMContext -> uint32_t -> Effect()
 void load(struct VMContext* ctx, uint32_t instr);
+
+// Stores a 1byte value from register into memory.
+// store :: VMContext -> uint32_t -> Effect()
+void store(struct VMContext* ctx, uint32_t instr);
 
 
 //---------------------------------------------------------
