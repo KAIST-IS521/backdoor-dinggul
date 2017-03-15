@@ -143,6 +143,10 @@ void eq(struct VMContext* ctx, uint32_t instr);
 // ite :: VMContext -> uint32_t -> Effect()
 void ite(struct VMContext* ctx, uint32_t instr);
 
+// Jumps to specified address.
+// jump :: VMContext -> uint32_t -> Effect()
+void jump(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H

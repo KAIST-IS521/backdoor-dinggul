@@ -177,8 +177,17 @@ void ite(struct VMContext* ctx, uint32_t instr) {
     printf("ite:\tinstruction[%08x]\n", instr);
 #endif
     if (ctx->r[EXTRACT_B1(instr)].value)
-        *ctx->pc = ctx->code + (4 * ctx->r[EXTRACT_B2(instr)].value);
+        *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B2(instr)].value;
     else
-        *ctx->pc = ctx->code + (4 * ctx->r[EXTRACT_B3(instr)].value);
+        *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B3(instr)].value;
+}
+
+// Jumps to specified address.
+// jump :: VMContext -> uint32_t -> Effect()
+void jump(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("jump:\tinstruction[%08x]\n", instr);
+#endif
+    *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B1(instr);
 }
 

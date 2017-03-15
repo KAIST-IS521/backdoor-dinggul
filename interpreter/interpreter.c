@@ -36,6 +36,7 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
     f[0x80] = ge;
     f[0x90] = eq;
     f[0xa0] = ite;
+    f[0xb0] = jump;
 }
 
 void initRegs(Reg *r, uint32_t cnt)
