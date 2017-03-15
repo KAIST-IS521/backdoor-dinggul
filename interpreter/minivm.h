@@ -7,7 +7,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 #ifndef MINIVM_H
 #define MINIVM_H
@@ -23,6 +22,8 @@
 #define MVM_NUM_REGISTERS 16 // Default
 
 #define MVM_MAX_MEM_SIZE  8192 // Default
+
+#define UNUSED __attribute__((unused))
 
 
 //---------------------------------------------------------
@@ -150,6 +151,10 @@ void jump(struct VMContext* ctx, uint32_t instr);
 // Same as libc puts.
 // _puts :: VMContext -> uint32_t -> Effect()
 void _puts(struct VMContext* ctx, uint32_t instr);
+
+// Same as libc gets.
+// _gets :: VMContext -> uint32_t -> Effect()
+void _gets(struct VMContext* ctx, uint32_t instr);
 
 
 //---------------------------------------------------------

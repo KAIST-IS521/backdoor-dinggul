@@ -5,8 +5,9 @@
 //-----------------------------------------------------------------------------
 
 #include "minivm.h"
+#include <stdio.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
 //---------------------------------------------------------
 // FUNCTION IMPLEMENTATIONS:
@@ -76,7 +77,7 @@ void setMemValue(struct VMContext* ctx, uint32_t offset, char value) {
 
 // Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
-void halt(struct VMContext* ctx, uint32_t instr) {
+void halt(struct VMContext* ctx UNUSED, uint32_t instr UNUSED) {
 #if DEBUG
     printf("halt:\tinstruction[%08x]\n", instr);
 #endif
@@ -198,5 +199,14 @@ void _puts(struct VMContext* ctx, uint32_t instr) {
     printf("puts:\tinstruction[%08x]\n", instr);
 #endif
     puts((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+}
+
+// Same as libc gets.
+// _gets :: VMContext -> uint32_t -> Effect()
+void _gets(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("gets:\tinstruction[%08x]\n", instr);
+#endif
+    scanf("%s", ((char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]));
 }
 
