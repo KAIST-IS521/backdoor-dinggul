@@ -30,6 +30,7 @@ void initVMContext(struct VMContext* ctx,
                                 Reg* registers,
                              FunPtr* funtable,
                             uint8_t* code,
+                            uint32_t codeLen,
                           uint32_t** pc) {
     ctx->numRegs    = numRegs;
     ctx->numFuns    = numFuns;
@@ -37,6 +38,7 @@ void initVMContext(struct VMContext* ctx,
     ctx->funtable   = funtable;
     ctx->mem        = (uint8_t*)malloc(MVM_MAX_MEM_SIZE);
     ctx->code       = code;
+    ctx->codeLen    = codeLen;
     ctx->pc         = pc;
 }
 
@@ -187,10 +189,22 @@ void ite(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
     printf("ite:\tinstruction[%08x]\n", instr);
 #endif
-    if (ctx->r[EXTRACT_B1(instr)].value)
+    if (ctx->r[EXTRACT_B1(instr)].value) {
+        if (ctx->r[EXTRACT_B2(instr)].value*4 >= ctx->codeLen) {
+            fprintf(stderr, "Segmentation fault\n");
+            exit(1);
+        }
+
         *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B2(instr)].value;
-    else
+    }
+    else {
+        if (ctx->r[EXTRACT_B3(instr)].value*4 >= ctx->codeLen) {
+            fprintf(stderr, "Segmentation fault\n");
+            exit(1);
+        }
+
         *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B3(instr)].value;
+    }
 }
 
 // Jumps to specified address.
@@ -199,6 +213,11 @@ void jump(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
     printf("jump:\tinstruction[%08x]\n", instr);
 #endif
+    if (EXTRACT_B1(instr)*4 >= ctx->codeLen) {
+        fprintf(stderr, "Segmentation fault\n");
+        exit(1);
+    }
+
     *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B1(instr);
 }
 

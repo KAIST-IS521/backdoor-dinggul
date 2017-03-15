@@ -45,6 +45,7 @@ typedef struct VMContext {
     Reg* r;           // Ptr to register array.
     FunPtr* funtable; // Ptr to a funptr table.
     uint8_t* code;    // Ptr to a code space.
+    uint32_t codeLen; // Code length.
     uint8_t* mem;     // Ptr to memory space for execution/calculation.
     uint32_t** pc;    // Ptr to a program counter.
 } VMContext;
@@ -86,6 +87,7 @@ void initVMContext(struct VMContext* ctx,
                                 Reg* registers,
                              FunPtr* funtable,
                             uint8_t* code,
+                            uint32_t codeLen,
                           uint32_t** pc);
 
 // Reads an instruction, executes it, then steps to the next instruction.

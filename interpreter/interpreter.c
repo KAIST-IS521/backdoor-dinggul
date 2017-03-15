@@ -84,7 +84,7 @@ int main(int argc, char** argv) {
     // Initialize interpretation functions.
     initFuncs(f, NUM_FUNCS);
     // Initialize VM context.
-    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f, code, &pc);
+    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f, code, (uint32_t)fileLen, &pc);
 
     while (is_running) {
         // TODO: Check the boundary of program counter.
