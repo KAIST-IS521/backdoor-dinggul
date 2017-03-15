@@ -6,6 +6,7 @@
 
 #include "minivm.h"
 #include <stdio.h>
+#include <string.h>
 
 #define DEBUG 0
 
@@ -54,14 +55,14 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
 }
 
 // Checks memory boundary and returns memory value according to offset.
-// getMemValue :: VMContext -> uint32_t -> uint32_t
-uint32_t getMemValue(struct VMContext* ctx, uint32_t offset) {
-    if (offset+4 > MVM_MAX_MEM_SIZE) {
+// getMemValue :: VMContext -> uint32_t -> uint8_t
+uint8_t getMemValue(struct VMContext* ctx, uint32_t offset) {
+    if (offset >= MVM_MAX_MEM_SIZE) {
         fprintf(stderr, "Segmentation fault\n");
         exit(1);
     }
 
-    return *(uint32_t*)(ctx->mem+offset);
+    return ctx->mem[offset];
 }
 
 // Checks memory boundary and returns memory value according to offset.
@@ -73,6 +74,15 @@ void setMemValue(struct VMContext* ctx, uint32_t offset, char value) {
     }
 
     *(ctx->mem+offset) = value;
+}
+
+// Prints chars
+// print :: const char* -> Effect()
+void print(const char* s) {
+    int len = strlen(s);
+    int i;
+    for(i = 0; i < len; i++)
+        putchar(s[i]);
 }
 
 // Stops the execution and exit.
@@ -91,8 +101,8 @@ void load(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
     printf("load:\tinstruction[%08x]\n", instr);
 #endif
-    uint32_t refVal = getMemValue(ctx, ctx->r[EXTRACT_B2(instr)].value);
-    ctx->r[EXTRACT_B1(instr)].value = EXTRACT_B0(refVal);
+    uint8_t refVal = getMemValue(ctx, ctx->r[EXTRACT_B2(instr)].value);
+    ctx->r[EXTRACT_B1(instr)].value = refVal;
 }
 
 // Stores a 1byte value from register into memory.
@@ -198,7 +208,15 @@ void _puts(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
     printf("puts:\tinstruction[%08x]\n", instr);
 #endif
-    puts((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+    int len = strlen((char *)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+    if (&ctx->mem[ctx->r[EXTRACT_B1(instr)].value+len] > &ctx->mem[MVM_MAX_MEM_SIZE]) {
+        ctx->mem[MVM_MAX_MEM_SIZE] = 0;
+        print((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+        fprintf(stderr, "Segmentation fault\n");
+        exit(1);
+    }
+
+    print((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
 }
 
 // Same as libc gets.
@@ -208,5 +226,11 @@ void _gets(struct VMContext* ctx, uint32_t instr) {
     printf("gets:\tinstruction[%08x]\n", instr);
 #endif
     scanf("%s", ((char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]));
+
+    int len = strlen((char *)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+    if (&ctx->mem[ctx->r[EXTRACT_B1(instr)].value+len] > &ctx->mem[MVM_MAX_MEM_SIZE]) {
+        fprintf(stderr, "Segmentation fault\n");
+        exit(1);
+    }
 }
 
