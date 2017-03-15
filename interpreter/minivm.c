@@ -170,3 +170,15 @@ void eq(struct VMContext* ctx, uint32_t instr) {
     ctx->r[EXTRACT_B1(instr)].value = (ctx->r[EXTRACT_B2(instr)].value == ctx->r[EXTRACT_B3(instr)].value) ? 1 : 0;
 }
 
+// Checks the first value of register. If it is greather than 0, set pc as the value of second register. Ohterwise, set pc as the value of third register.
+// ite :: VMContext -> uint32_t -> Effect()
+void ite(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("ite:\tinstruction[%08x]\n", instr);
+#endif
+    if (ctx->r[EXTRACT_B1(instr)].value)
+        *ctx->pc = ctx->code + (4 * ctx->r[EXTRACT_B2(instr)].value);
+    else
+        *ctx->pc = ctx->code + (4 * ctx->r[EXTRACT_B3(instr)].value);
+}
+

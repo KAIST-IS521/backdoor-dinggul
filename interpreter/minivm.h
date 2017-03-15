@@ -139,6 +139,10 @@ void ge(struct VMContext* ctx, uint32_t instr);
 // eq :: VMContext -> uint32_t -> Effect()
 void eq(struct VMContext* ctx, uint32_t instr);
 
+// Checks the first value of register. If it is greather than 0, set pc as the value of second register. Ohterwise, set pc as the value of third register.
+// ite :: VMContext -> uint32_t -> Effect()
+void ite(struct VMContext* ctx, uint32_t instr);
+
 
 //---------------------------------------------------------
 #endif //ifndef MINIVM_H
