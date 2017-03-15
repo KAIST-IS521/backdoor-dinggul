@@ -12,9 +12,6 @@
 
 //---------------------------------------------------------
 // FUNCTION IMPLEMENTATIONS:
-//
-// TODO: Make segfault message more clearly
-//       e.g. [store] segfault at ins:[20000000] pc:[0x602030]
 
 
 // Defers decoding of register args to the called function.
@@ -59,7 +56,7 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
     dispatch(ctx, instr);
 
     if ((uint64_t)*ctx->pc > (uint64_t)&ctx->code[ctx->codeLen-1]) {
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[stepVMContext]: segfault\n");
         exit(1);
     }
 }
@@ -68,7 +65,7 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
 // getMemValue :: VMContext -> uint32_t -> uint8_t
 uint8_t getMemValue(struct VMContext* ctx, uint32_t offset) {
     if (offset >= MVM_MAX_MEM_SIZE) {
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[load]: segfault\n");
         exit(1);
     }
 
@@ -79,7 +76,7 @@ uint8_t getMemValue(struct VMContext* ctx, uint32_t offset) {
 // setMemValue :: VMContext -> uint32_t -> char -> Effect()
 void setMemValue(struct VMContext* ctx, uint32_t offset, char value) {
     if (offset >= MVM_MAX_MEM_SIZE) {
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[store]: segfault\n");
         exit(1);
     }
 
@@ -199,7 +196,7 @@ void ite(struct VMContext* ctx, uint32_t instr) {
 #endif
     if (ctx->r[EXTRACT_B1(instr)].value) {
         if (ctx->r[EXTRACT_B2(instr)].value*4 >= ctx->codeLen) {
-            fprintf(stderr, "Segmentation fault\n");
+            fprintf(stderr, "[ite]: segfault\n");
             exit(1);
         }
 
@@ -207,7 +204,7 @@ void ite(struct VMContext* ctx, uint32_t instr) {
     }
     else {
         if (ctx->r[EXTRACT_B3(instr)].value*4 >= ctx->codeLen) {
-            fprintf(stderr, "Segmentation fault\n");
+            fprintf(stderr, "[ite]: segfault\n");
             exit(1);
         }
 
@@ -222,7 +219,7 @@ void jump(struct VMContext* ctx, uint32_t instr) {
     printf("jump:\tinstruction[%08x]\n", instr);
 #endif
     if (EXTRACT_B1(instr)*4 >= ctx->codeLen) {
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[jump]: segfault\n");
         exit(1);
     }
 
@@ -239,7 +236,7 @@ void _puts(struct VMContext* ctx, uint32_t instr) {
     if (&ctx->mem[ctx->r[EXTRACT_B1(instr)].value+len] > &ctx->mem[MVM_MAX_MEM_SIZE]) {
         ctx->mem[MVM_MAX_MEM_SIZE] = 0;
         print((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[puts]: segfault\n");
         exit(1);
     }
 
@@ -256,7 +253,7 @@ void _gets(struct VMContext* ctx, uint32_t instr) {
 
     int len = strlen((char *)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
     if (&ctx->mem[ctx->r[EXTRACT_B1(instr)].value+len] > &ctx->mem[MVM_MAX_MEM_SIZE]) {
-        fprintf(stderr, "Segmentation fault\n");
+        fprintf(stderr, "[gets]: segfault\n");
         exit(1);
     }
 }
