@@ -1,0 +1,151 @@
+puti r0, 0
+puti r1, 1
+puti r2, 57
+store r0, r2
+add r0, r0, r1
+puti r2, 32
+store r0, r2
+add r0, r0, r1
+puti r2, 45
+store r0, r2
+add r0, r0, r1
+puti r2, 32
+store r0, r2
+add r0, r0, r1
+puti r2, 54
+store r0, r2
+add r0, r0, r1
+puti r2, 32
+store r0, r2
+add r0, r0, r1
+puti r2, 61
+store r0, r2
+add r0, r0, r1
+puti r2, 32
+store r0, r2
+add r0, r0, r1
+puti r2, 63
+store r0, r2
+add r0, r0, r1
+puti r2, 10
+store r0, r2
+add r0, r0, r1
+puti r2, 0
+store r0, r2
+add r0, r0, r1
+puti r0, 0
+puts r0
+gets r0
+puti r1, 1
+add r0, r0, r1
+load r0, r0
+ite r0, 58, 42
+puti r0, 0
+load r3, r0
+puti r1, 48
+gt r2, r1, r3
+ite r2, 58, 47
+puti r1, 57
+gt r2, r3, r1
+ite r2, 58, 50
+puti r1, 9
+puti r2, 6
+sub r1, r1, r2
+puti r2, 48
+add r1, r1, r2
+eq r4, r3, r1
+ite r4, 125, 96
+halt
+puti r0, 0
+puti r1, 1
+puti r2, 66
+store r0, r2
+add r0, r0, r1
+puti r2, 97
+store r0, r2
+add r0, r0, r1
+puti r2, 100
+store r0, r2
+add r0, r0, r1
+puti r2, 32
+store r0, r2
+add r0, r0, r1
+puti r2, 105
+store r0, r2
+add r0, r0, r1
+puti r2, 110
+store r0, r2
+add r0, r0, r1
+puti r2, 112
+store r0, r2
+add r0, r0, r1
+puti r2, 117
+store r0, r2
+add r0, r0, r1
+puti r2, 116
+store r0, r2
+add r0, r0, r1
+puti r2, 10
+store r0, r2
+add r0, r0, r1
+puti r2, 0
+store r0, r2
+add r0, r0, r1
+puti r0, 0
+puts r0
+halt
+puti r0, 0
+puti r1, 1
+puti r2, 87
+store r0, r2
+add r0, r0, r1
+puti r2, 114
+store r0, r2
+add r0, r0, r1
+puti r2, 111
+store r0, r2
+add r0, r0, r1
+puti r2, 110
+store r0, r2
+add r0, r0, r1
+puti r2, 103
+store r0, r2
+add r0, r0, r1
+puti r2, 33
+store r0, r2
+add r0, r0, r1
+puti r2, 10
+store r0, r2
+add r0, r0, r1
+puti r2, 0
+store r0, r2
+add r0, r0, r1
+puti r0, 0
+puts r0
+halt
+puti r0, 0
+puti r1, 1
+puti r2, 71
+store r0, r2
+add r0, r0, r1
+puti r2, 111
+store r0, r2
+add r0, r0, r1
+puti r2, 111
+store r0, r2
+add r0, r0, r1
+puti r2, 100
+store r0, r2
+add r0, r0, r1
+puti r2, 33
+store r0, r2
+add r0, r0, r1
+puti r2, 10
+store r0, r2
+add r0, r0, r1
+puti r2, 0
+store r0, r2
+add r0, r0, r1
+puti r0, 0
+puts r0
+halt

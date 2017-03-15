@@ -1,0 +1,287 @@
+main:
+    # printf( "User: " )
+    puti r0, 0 # addr to put string
+    puti r1, 1 # store increment
+
+    puti r2, 'U'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 's'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'e'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'r'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ':'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puts r2
+
+
+    # gets(buf)
+    puti r0, 0
+    gets r0
+
+    # strcmp(buf, "user")
+    puti r4, 1
+compare_user_1:
+    load r1, r0
+    puti r2, 'u'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_user_2, Failure
+
+compare_user_2:
+    load r1, r0
+    puti r2, 's'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_user_3, Failure
+
+compare_user_3:
+    load r1, r0
+    puti r2, 'e'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_user_4, Failure
+
+compare_user_4:
+    load r1, r0
+    puti r2, 'r'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_user_5, Failure
+
+compare_user_5:
+    load r1, r0
+    puti r2, 0
+    eq r3, r1, r2
+    ite r3, compare_user_6, Failure
+
+compare_user_6:
+
+    # printf( "Password: " )
+    puti r0, 0 # addr to put string
+    puti r1, 1 # store increment
+
+    puti r2, 'P'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'a'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 's'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 's'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'w'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'o'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'r'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'd'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ':'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puts r2
+
+    # gets( buf );
+    puti r0, 0
+    gets r0
+
+    # strcmp( buf, "password" )
+    puti r4, 1
+compare_pass_1:
+    load r1, r0
+    puti r2, 'p'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_2, Failure
+
+compare_pass_2:
+    load r1, r0
+    puti r2, 'a'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_3, Failure
+
+compare_pass_3:
+    load r1, r0
+    puti r2, 's'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_4, Failure
+
+compare_pass_4:
+    load r1, r0
+    puti r2, 's'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_5, Failure
+
+compare_pass_5:
+    load r1, r0
+    puti r2, 'w'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_6, Failure
+
+compare_pass_6:
+    load r1, r0
+    puti r2, 'o'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_7, Failure
+
+compare_pass_7:
+    load r1, r0
+    puti r2, 'r'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_8, Failure
+
+compare_pass_8:
+    load r1, r0
+    puti r2, 'd'
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_9, Failure
+
+compare_pass_9:
+    load r1, r0
+    puti r2, 0
+    eq r3, r1, r2
+    add r0, r0, r4
+    ite r3, compare_pass_10, Failure
+
+compare_pass_10:
+    jump Success
+
+Success:
+    puti r0, 0 # addr to put string
+    puti r1, 1 # store increment
+
+    puti r2, 'S'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'u'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'c'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'c'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'e'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 's'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 's'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puts r2
+
+    halt
+
+Failure:
+    puti r0, 0 # addr to put string
+    puti r1, 1 # store increment
+
+    puti r2, 'F'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'a'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'i'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'l'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'u'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'r'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'e'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puts r2
+
+    halt

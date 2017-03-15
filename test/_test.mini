@@ -1,0 +1,215 @@
+main:
+    # puts("9 - 6 = ?")
+    puti r0, 0
+    puti r1, 1
+
+    puti r2, '9'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '-'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '6'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '='
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '?'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puti r0, 0
+    puts r0
+
+    gets r0
+    puti r1, 1
+
+    add r0, r0, r1
+
+    load r0, r0
+    ite r0, bad_input, next1
+next1:
+
+    puti r0, 0
+    load r3, r0
+
+    puti r1, '0'
+    gt r2, r1, r3
+    ite r2, bad_input, next2
+next2:
+
+    puti r1, '9'
+    gt r2, r3, r1
+    ite r2, bad_input, next3
+next3:
+
+    puti r1, 9
+    puti r2, 6
+    sub r1, r1, r2
+    puti r2, '0'
+    add r1, r1, r2
+
+    eq r4, r3, r1
+    ite r4, good, wrong
+
+    halt
+
+bad_input:
+    puti r0, 0
+    puti r1, 1
+
+    puti r2, 'B'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'a'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'd'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, ' '
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'i'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'n'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'p'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'u'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 't'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puti r0, 0
+    puts r0
+
+    halt
+
+wrong:
+    puti r0, 0
+    puti r1, 1
+
+    puti r2, 'W'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'r'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'o'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'n'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'g'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '!'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puti r0, 0
+    puts r0
+
+    halt
+
+good:
+    puti r0, 0
+    puti r1, 1
+
+    puti r2, 'G'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'o'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'o'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 'd'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, '!'
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 10
+    store r0, r2
+    add r0, r0, r1
+
+    puti r2, 0
+    store r0, r2
+    add r0, r0, r1
+
+    puti r0, 0
+    puts r0
+
+    halt
