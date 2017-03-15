@@ -66,8 +66,9 @@ def parse_arguments(ins):
     return ins_head, list(arg_iter(args))
 
 assert len(sys.argv) > 1, 'Give me more arguments'
-assert sys.argv[1].endswith('.mini'), 'Invalid extension'
 assert os.path.exists(sys.argv[1]), 'No such file'
+assert sys.argv[1].endswith('.mini'), 'Invalid extension'
+assert os.path.basename(sys.argv[1]).startswith('_'), 'Bad naming convention'
 
 with open(sys.argv[1], 'rb') as f:
     data = f.read().split('\n')
@@ -85,11 +86,13 @@ for ins in data:
 code = map(parse_arguments, code)
 
 dirname = os.path.dirname(sys.argv[1])
-with open(os.path.join(dirname, 'tmp.mini'), 'wb') as f:
+basename = os.path.basename(sys.argv[1])[1:-5]
+
+fn = os.path.join(dirname, basename)
+with open('{}.mini'.format(fn), 'wb') as f:
     f.write('\n'.join(trim('{} {}'.format(h, ', '.join(a))) for h, a in code))
 
-fn = sys.argv[1][:-5]
 for a, b, c in os.walk('../'):
     if a.endswith('compiler'):
         break
-os.system('ocaml str.cma ./{}/compiler.ml ./{}/tmp.mini {}.out'.format(a, dirname, fn))
+os.system('ocaml str.cma ./{}/compiler.ml {}.mini {}.out'.format(a, fn, fn))
