@@ -198,7 +198,7 @@ void ite(struct VMContext* ctx, uint32_t instr) {
             exit(1);
         }
 
-        *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B2(instr)].value;
+        *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B2(instr);
     }
     else {
         if (ctx->r[EXTRACT_B3(instr)].value*4 >= ctx->codeLen) {
@@ -206,7 +206,7 @@ void ite(struct VMContext* ctx, uint32_t instr) {
             exit(1);
         }
 
-        *ctx->pc = (uint32_t*)ctx->code + ctx->r[EXTRACT_B3(instr)].value;
+        *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B3(instr);
     }
 }
 
