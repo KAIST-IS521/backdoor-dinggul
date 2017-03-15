@@ -24,7 +24,6 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
         f[i] = NULL;
     }
 
-    // TODO: initialize function pointers
     f[0x00] = halt;
     f[0x10] = load;
     f[0x20] = store;
@@ -87,7 +86,6 @@ int main(int argc, char** argv) {
     initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f, code, (uint32_t)fileLen, &pc);
 
     while (is_running) {
-        // TODO: Check the boundary of program counter.
         stepVMContext(&vm, &pc);
     }
 
