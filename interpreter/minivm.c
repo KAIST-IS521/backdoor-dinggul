@@ -191,3 +191,12 @@ void jump(struct VMContext* ctx, uint32_t instr) {
     *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B1(instr);
 }
 
+// Same as libc puts.
+// _puts :: VMContext -> uint32_t -> Effect()
+void _puts(struct VMContext* ctx, uint32_t instr) {
+#if DEBUG
+    printf("puts:\tinstruction[%08x]\n", instr);
+#endif
+    puts((const char*)&ctx->mem[ctx->r[EXTRACT_B1(instr)].value]);
+}
+
