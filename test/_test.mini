@@ -1,4 +1,18 @@
 main:
+    # dummy
+    puti r0, 0
+    puti r1, 10
+    puti r3, 1
+    move r2, r3
+
+loop_start:
+    ge r3, r0, r1
+    ite r3, inc, loop_end
+inc:
+    add r0, r0, r1
+    jump loop_start
+loop_end:
+
     # puts("9 - 6 = ?")
     puti r0, 0
     puti r1, 1

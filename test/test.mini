@@ -1,4 +1,12 @@
 puti r0, 0
+puti r1, 10
+puti r3, 1
+move r2, r3
+ge r3, r0, r1
+ite r3, 6, 8
+add r0, r0, r1
+jump 4
+puti r0, 0
 puti r1, 1
 puti r2, 57
 store r0, r2
@@ -39,22 +47,22 @@ gets r0
 puti r1, 1
 add r0, r0, r1
 load r0, r0
-ite r0, 58, 42
+ite r0, 66, 50
 puti r0, 0
 load r3, r0
 puti r1, 48
 gt r2, r1, r3
-ite r2, 58, 47
+ite r2, 66, 55
 puti r1, 57
 gt r2, r3, r1
-ite r2, 58, 50
+ite r2, 66, 58
 puti r1, 9
 puti r2, 6
 sub r1, r1, r2
 puti r2, 48
 add r1, r1, r2
 eq r4, r3, r1
-ite r4, 125, 96
+ite r4, 133, 104
 halt
 puti r0, 0
 puti r1, 1
