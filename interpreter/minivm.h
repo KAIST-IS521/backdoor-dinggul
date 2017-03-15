@@ -154,7 +154,7 @@ void ite(struct VMContext* ctx, uint32_t instr);
 // jump :: VMContext -> uint32_t -> Effect()
 void jump(struct VMContext* ctx, uint32_t instr);
 
-// Same as libc puts.
+// Same as libc puts except new line char at the end.
 // _puts :: VMContext -> uint32_t -> Effect()
 void _puts(struct VMContext* ctx, uint32_t instr);
 

@@ -12,6 +12,9 @@
 
 //---------------------------------------------------------
 // FUNCTION IMPLEMENTATIONS:
+//
+// TODO: Make segfault message more clearly
+//       e.g. [store] segfault at ins:[20000000] pc:[0x602030]
 
 
 // Defers decoding of register args to the called function.
@@ -221,7 +224,7 @@ void jump(struct VMContext* ctx, uint32_t instr) {
     *ctx->pc = (uint32_t*)ctx->code + EXTRACT_B1(instr);
 }
 
-// Same as libc puts.
+// Same as libc puts except new line char at the end.
 // _puts :: VMContext -> uint32_t -> Effect()
 void _puts(struct VMContext* ctx, uint32_t instr) {
 #if DEBUG
