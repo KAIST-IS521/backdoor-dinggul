@@ -89,5 +89,4 @@ with open(os.path.join(dirname, 'tmp.mini'), 'wb') as f:
     f.write('\n'.join(trim('{} {}'.format(h, ', '.join(a))) for h, a in code))
 
 fn = sys.argv[1][:-5]
-print fn
 os.system('ocaml str.cma compiler.ml {}/tmp.mini {}.out'.format(dirname, fn))
