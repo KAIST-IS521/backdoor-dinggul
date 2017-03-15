@@ -67,20 +67,21 @@ int main(int argc, char** argv) {
     int fileLen = ftell(bytecode);
     rewind(bytecode);
 
-    char* code = (char*)malloc(fileLen/4*4+4);
+    uint8_t* code = (uint8_t*)malloc(fileLen/4*4+4);
     fread(code, fileLen, 1, bytecode);
 
     fclose(bytecode);
+
+    // Initialize the program counter of VM.
+    pc = (uint32_t*)code;
 
     // Initialize registers.
     initRegs(r, NUM_REGS);
     // Initialize interpretation functions.
     initFuncs(f, NUM_FUNCS);
     // Initialize VM context.
-    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f);
+    initVMContext(&vm, NUM_REGS, NUM_FUNCS, r, f, code, &pc);
 
-    // Initialize VM program counter.
-    pc = (uint32_t*)code;
     while (is_running) {
         // TODO: Check the boundary of program counter.
         stepVMContext(&vm, &pc);

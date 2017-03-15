@@ -21,13 +21,21 @@ void dispatch(struct VMContext* ctx, const uint32_t instr) {
 
 
 // Initializes a VMContext in-place.
-// initVMContext :: VMContext -> uint32_t -> uint32_t -> [Reg] -> [FunPtr] -> Effect()
-void initVMContext(struct VMContext* ctx, const uint32_t numRegs, const uint32_t numFuns, Reg* registers, FunPtr* funtable) {
+// initVMContext :: VMContext -> uint32_t -> uint32_t -> [Reg] -> [FunPtr] -> uint8_t* -> uint32_t** -> Effect()
+void initVMContext(struct VMContext* ctx,
+                      const uint32_t numRegs,
+                      const uint32_t numFuns,
+                                Reg* registers,
+                             FunPtr* funtable,
+                            uint8_t* code,
+                          uint32_t** pc) {
     ctx->numRegs    = numRegs;
     ctx->numFuns    = numFuns;
     ctx->r          = registers;
     ctx->funtable   = funtable;
-    ctx->mem        = (char*)malloc(MVM_MAX_MEM_SIZE);
+    ctx->mem        = (uint8_t*)malloc(MVM_MAX_MEM_SIZE);
+    ctx->code       = code;
+    ctx->pc         = pc;
 }
 
 
@@ -37,11 +45,11 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
     // Read a 32-bit bytecode instruction.
     uint32_t instr = **pc;
 
-    // Dispatch to an opcode-handler.
-    dispatch(ctx, instr);
-
     // Increment to next instruction.
     (*pc)++;
+
+    // Dispatch to an opcode-handler.
+    dispatch(ctx, instr);
 }
 
 // Checks memory boundary and returns memory value according to offset.

@@ -43,7 +43,9 @@ typedef struct VMContext {
     uint32_t numFuns;
     Reg* r;           // Ptr to register array.
     FunPtr* funtable; // Ptr to a funptr table.
-    char* mem;        // Ptr to memory space for execution/calculation.
+    uint8_t* code;    // Ptr to a code space.
+    uint8_t* mem;     // Ptr to memory space for execution/calculation.
+    uint32_t** pc;    // Ptr to a program counter.
 } VMContext;
 
 
@@ -76,12 +78,14 @@ extern bool is_running;
 void dispatch(struct VMContext* ctx, const uint32_t instr);
 
 // Initializes a VMContext in-place.
-// initVMContext :: VMContext -> uint32_t -> uint32_t -> [Reg] -> [FunPtr] -> Effect()
+// initVMContext :: VMContext -> uint32_t -> uint32_t -> [Reg] -> [FunPtr] -> uint8_t* -> uint32_t** -> Effect()
 void initVMContext(struct VMContext* ctx,
                       const uint32_t numRegs,
                       const uint32_t numFuns,
                                 Reg* registers,
-                             FunPtr* funtable);
+                             FunPtr* funtable,
+                            uint8_t* code,
+                          uint32_t** pc);
 
 // Reads an instruction, executes it, then steps to the next instruction.
 // stepVMContext :: VMContext -> uint32_t** -> Effect()
