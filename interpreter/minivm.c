@@ -57,6 +57,11 @@ void stepVMContext(struct VMContext* ctx, uint32_t** pc) {
 
     // Dispatch to an opcode-handler.
     dispatch(ctx, instr);
+
+    if ((uint64_t)*ctx->pc > (uint64_t)&ctx->code[ctx->codeLen-1]) {
+        fprintf(stderr, "Segmentation fault\n");
+        exit(1);
+    }
 }
 
 // Checks memory boundary and returns memory value according to offset.

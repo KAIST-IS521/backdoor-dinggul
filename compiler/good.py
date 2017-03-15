@@ -89,4 +89,7 @@ with open(os.path.join(dirname, 'tmp.mini'), 'wb') as f:
     f.write('\n'.join(trim('{} {}'.format(h, ', '.join(a))) for h, a in code))
 
 fn = sys.argv[1][:-5]
-os.system('ocaml str.cma compiler.ml {}/tmp.mini {}.out'.format(dirname, fn))
+for a, b, c in os.walk('../'):
+    if a.endswith('compiler'):
+        break
+os.system('ocaml str.cma ./{}/compiler.ml ./{}/tmp.mini {}.out'.format(a, dirname, fn))
