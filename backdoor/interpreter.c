@@ -21,7 +21,7 @@ void usageExit(char** argv) {
 void initFuncs(FunPtr *f, uint32_t cnt) {
     uint32_t i;
     for (i = 0; i < cnt; i++) {
-        f[i] = NULL;
+        f[i] = invalidOp;
     }
 
     f[0x00] = halt;

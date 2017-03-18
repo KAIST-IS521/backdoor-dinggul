@@ -106,6 +106,10 @@ void setMemValue(struct VMContext* ctx, uint32_t offset, char value);
 // print :: const char* -> Effect()
 void print(const char* s);
 
+// Handles when invalid opcodes are executed.
+// invalidOp :: VMContext -> uint32_t -> Effect()
+void invalidOp(struct VMContext* ctx, uint32_t instr);
+
 // Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
 void halt(struct VMContext* ctx, uint32_t instr);
