@@ -92,6 +92,13 @@ void print(const char* s) {
         putchar(s[i]);
 }
 
+// Handles when invalid opcodes are executed.
+// invalidOp :: VMContext -> uint32_t -> Effect()
+void invalidOp(struct VMContext* ctx UNUSED, uint32_t instr UNUSED) {
+    fprintf(stderr, "Illegal instruction\n");
+    exit(1);
+}
+
 // Stops the execution and exit.
 // halt :: VMContext -> uint32_t -> Effect()
 void halt(struct VMContext* ctx UNUSED, uint32_t instr UNUSED) {
